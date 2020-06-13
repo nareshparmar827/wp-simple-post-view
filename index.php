@@ -7,14 +7,42 @@
  * Version:			1.0
  * WordPress URI:	
  * Plugin URI:		
- * Contributors: 	dipakparmar
- * Author:			Dipak Parmar
+ * Contributors: 	naershparmar827
+ * Author:			Naresh Parmar
  * Author URI:		
  * Donate Link:		
  * License:			GPL-3.0
  * License URI:		https://www.gnu.org/licenses/gpl-3.0.html
- * @copyright:		Dipak Parmar
+ * @copyright:		Naresh Parmar
 */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Plugin textdomain.
+ */
+function wpSimplePostView_textdomain() {
+	load_plugin_textdomain( 'wp-simple-post-view', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'wpSimplePostView_textdomain' );
+
+/**
+ * Plugin activation.
+ */
+function wpSimplePostViewActivation() {
+	// Activation code here.
+}
+register_activation_hook( __FILE__, 'wpSimplePostViewActivation' );
+
+/**
+ * Plugin deactivation.
+ */
+function wpSimplePostViewDeactivation() {
+	// Deactivation code here.
+}
+register_deactivation_hook( __FILE__, 'wpSimplePostViewDeactivation' );
 
 function getCurrentIPAddressForPostView() {
 	
