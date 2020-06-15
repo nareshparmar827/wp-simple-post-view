@@ -1,15 +1,5 @@
 # WP SIMPLE POST VIEW 
 
-## Contributors: nareshparmar827
-## Tags: Easy Post Views Count, post count, post views, custom post views, count, view, postviews, counter
-## Requires at least: 4.5
-## Tested up to: 5.4.2
-## Stable tag: 1.0
-## Author: Naresh Parmar
-## Version: 1.0
-## License: GPLv2 or later
-## License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
 Add an wp simple post view plugin get count views of your posts.
 
 
