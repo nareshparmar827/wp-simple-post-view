@@ -39,9 +39,8 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		    $columns['post_view'] = 'post_view';
 		    return $columns;
 		}
-		
+
 		public static function ngd_addPostView_filter_posts_columns( $columns ) {
-  		  
   		  $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
           if( empty( $wp_simple_post_view_text ) ) {
         	$wp_simple_post_view_text = 'Post View';
