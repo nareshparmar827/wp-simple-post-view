@@ -52,4 +52,5 @@ A. Contact us at: [nareshparmar827@gmail.com](mailto:nareshparmar827@gmail.com)
 = 1.2 =
 * Reset all post views added functionality.
 
+=======
 == Screenshots ==
