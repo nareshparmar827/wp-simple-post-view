@@ -2,8 +2,8 @@
 Contributors: nareshparmar827, dipakparmar443
 Tags: Post View Count, Page View Count,Custom post type View Count, Easy Post Views Count, post count, post views, custom post views, count, view, postviews, counter
 Requires at least: 4.5
-Tested up to: 5.5.3
-Stable tag: 1.3
+Tested up to: 5.6
+Stable tag: 1.4
 Author: Naresh Parmar
 Author URI: https://profiles.wordpress.org/nareshparmar827/
 Plugin URI: https://wordpress.org/plugins/wp-simple-post-view/
@@ -54,5 +54,8 @@ A. Contact us at: [nareshparmar827@gmail.com](mailto:nareshparmar827@gmail.com)
 
 = 1.3 =
 * minor updates.
+
+= 1.4 =
+* Added settings page with dynamic text option : "Post View" -- This text is editable though backend.
 
 == Screenshots ==

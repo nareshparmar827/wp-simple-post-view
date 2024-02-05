@@ -35,8 +35,13 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		}
 		
 		public function ngd_addPostView_filter_posts_columns( $columns ) {
-  
-		  $columns['post_view'] = __( 'Post View', 'wp-simple-post-view' );
+  		  
+  		  $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+          if( empty( $wp_simple_post_view_text ) ) {
+        	$wp_simple_post_view_text = 'Post View';
+          }
+
+		  $columns['post_view'] = __( $wp_simple_post_view_text, 'wp-simple-post-view' );
 		  return $columns;
 		}
 
