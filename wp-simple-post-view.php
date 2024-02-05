@@ -1,19 +1,19 @@
 <?php 
 /*
- * Plugin Name     : Post View Count
- * Description     : Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
- * Text Domain     : wp-simple-post-view
- * Domain Path     : /languages
- * Version         : 2.0
- * WordPress URI   : https://wordpress.org/plugins/wp-simple-post-view/
- * Plugin URI      : https://wordpress.org/plugins/wp-simple-post-view/
- * Contributors    : nareshparmar827, dipakparmar443
- * Author          : Naresh Parmar
- * Author URI      : https://profiles.wordpress.org/nareshparmar827/
- * Donate Link     : https://www.paypal.me/nareshbhaiparmar
- * License         : GPL-3.0
- * License URI     : https://www.gnu.org/licenses/gpl-3.0.html
- * @copyright      : Naresh Parmar
+ * Plugin Name: Post View Count
+ * Description: Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
+ * Text Domain: wp-simple-post-view
+ * Domain Path: /languages
+ * Version: 2.0
+ * WordPress URI: https://wordpress.org/plugins/wp-simple-post-view/
+ * Plugin URI: https://wordpress.org/plugins/wp-simple-post-view/
+ * Contributors: nareshparmar827, dipakparmar443
+ * Author: Naresh Parmar
+ * Author URI: https://profiles.wordpress.org/nareshparmar827/
+ * Donate Link: https://www.paypal.me/NARESHBHAIPARMAR
+ * License: GPL-3.0
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright: Naresh Parmar
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
