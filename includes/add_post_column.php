@@ -21,7 +21,6 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		    if ( isset( $vars['orderby'] ) && 'post_view' == $vars['orderby'] ) {
 
 		    	$isPostCountExists = get_post_meta( 'post_view' );
-
 		        if( ! isset( $isPostCountExists ) && empty( $isPostCountExists ) ) {
 		        	return $vars;
 		        }
