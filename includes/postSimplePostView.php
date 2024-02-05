@@ -87,8 +87,13 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 				$postViewValue = 0;
 			}
 
+			$wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+            if( empty( $wp_simple_post_view_text ) ) {
+        	  $wp_simple_post_view_text = 'Post View';
+            }
+
 			$postViews = (int) $postViewValue;
-			$postViewLabel = __( 'Post View', 'wp-simple-post-view' );
+			$postViewLabel = __( $wp_simple_post_view_text, 'wp-simple-post-view' );
 			$postViews = '<div class="formated_post_view"><span>'. $postViewLabel .' : </span> '.$postViews.'</div>';
 			echo apply_filters('get_post_view', $postViews);
 		}
@@ -113,8 +118,13 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 				$postViewValue = 0;
 			}
 
+			$wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+            if( empty( $wp_simple_post_view_text ) ) {
+        	  $wp_simple_post_view_text = 'Post View';
+            }
+            
 			$postViews = (int) $postViewValue;
-			$postViewLabel = __( 'Post View', 'wp-simple-post-view' );
+			$postViewLabel = __( $wp_simple_post_view_text, 'wp-simple-post-view' );
 			$postViews = '<div class="formated_post_view"><span>'. $postViewLabel .' : </span> '.$postViews.'</div>';
 			return apply_filters( 'get_post_view', $postViews );
 		}

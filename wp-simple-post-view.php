@@ -4,7 +4,7 @@
  * Description:		Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
  * Text Domain:		wp-simple-post-view
  * Domain Path:		/languages
- * Version:			1.3
+ * Version:			1.5
  * WordPress URI:	https://wordpress.org/plugins/wp-simple-post-view/
  * Plugin URI:		https://wordpress.org/plugins/wp-simple-post-view/
  * Contributors: 	nareshparmar827, dipakparmar443
@@ -91,8 +91,15 @@ function wp_simple_post_view_register_my_custom_menu_page() {
         'wp-spv',
         'wp_simple_post_view_settings',
         '');
+
+    add_action( 'admin_init', 'register_wp_simple_post_view_settings' );
 }
 add_action( 'admin_menu', 'wp_simple_post_view_register_my_custom_menu_page' );
+
+function register_wp_simple_post_view_settings() {
+	//register our settings
+	register_setting( 'wp-simple-post-view-settings-group', 'wp_simple_post_view_text' );
+}
 
 function wp_simple_post_view_settings(){
 
@@ -133,5 +140,30 @@ function wp_simple_post_view_settings(){
 	    	});
 	    </script>
     </div>
+
+    <div class="wrap">
+		<h1>Text Edit Settings</h1>
+
+		<form method="post" action="options.php">
+		    <?php settings_fields( 'wp-simple-post-view-settings-group' ); ?>
+		    <?php do_settings_sections( 'wp-simple-post-view-settings-group' ); ?>
+		    <table class="form-table">
+		        <tr valign="top">
+		        <th scope="row">Post View Text</th>
+		        
+		        <?php $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+		        if( empty( $wp_simple_post_view_text ) ) {
+		        	$wp_simple_post_view_text = 'Post View';
+		        }
+		        ?>
+		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo $wp_simple_post_view_text; ?>" /></td>
+		        </tr>
+		        
+		    </table>
+		    
+		    <?php submit_button(); ?>
+
+		</form>
+		</div>
     <?php
 }
