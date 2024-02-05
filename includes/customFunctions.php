@@ -35,16 +35,22 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 			$postView = __( 'Post View', 'wp-simple-post-view' );
 			$value = get_post_meta($post->ID, 'post_view', true); ?>
 			<label for="wporg_field"><strong><?php echo $postView;?></strong></label>
-		    <input type="number" name="post_view" style="width: 70%;" placeholder="post view" value="<?php echo $value;?>">
+		    <input type="number" name="post_view" style="width: 70%;" placeholder="post view" value="<?php echo esc_attr($value);?>">
 			<?php }
 		}
 
 		public static function ngd_addPostViewMetaBoxSavePostdata($post_id) {
-
+            
 			if(get_post_type($post_id) == 'post') {
-
-			    if (array_key_exists('post_view', $_POST)) {
-
+                
+                if (array_key_exists('post_view', $_POST)) {
+                    
+                    $screen = esc_attr($_REQUEST['screen']);
+                    $action = esc_attr($_REQUEST['action']);
+                    if($screen == 'edit-post' && $action == 'inline-save') {
+                        return;
+                    }
+                    
 			        $postViewValue = '';
 			        if ( isset( $_POST['post_view'] ) ) {
 						$postViewValue = sanitize_title( $_POST['post_view'] );
