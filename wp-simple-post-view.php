@@ -78,9 +78,9 @@ if ( ! function_exists( 'ngd_wp_simple_post_view_deactivation' ) ) {
 	}
 }
 
+require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/postSimplePostView.php');
 if ( is_admin() ) {
     // we are in admin mode
-	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/postSimplePostView.php');
 	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/customFunctions.php');
 	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/add_post_column.php');
 }
@@ -95,20 +95,12 @@ function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
  * Register a "Post View Settings" menu page.
  */
 function wp_simple_post_view_register_menu_page() {
-    add_menu_page(
-        __( 'Post View Settings', 'textdomain' ),
-        'Post View Settings',
-        'manage_options',
-        'wp-spv',
-        'wp_simple_post_view_settings',
-        '');
-
+    add_menu_page( __( 'Post View Settings', 'textdomain' ), __( 'Post View Settings', 'textdomain' ), 'manage_options', 'wp-spv', 'wp_simple_post_view_settings', '' );
     add_action( 'admin_init', 'register_wp_simple_post_view_settings' );
 }
 add_action( 'admin_menu', 'wp_simple_post_view_register_menu_page' );
 
 function register_wp_simple_post_view_settings() {
-	//register our settings
 	register_setting( 'wp-simple-post-view-settings-group', 'wp_simple_post_view_text' );
 }
 
@@ -135,7 +127,7 @@ function wp_simple_post_view_settings(){
 	?>
     <div class="wrap">
         <h1><?php _e( 'Post View Count Settings', 'wp-simple-post-view' ); ?></h1>
-        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>" onclick="return yes_no();">	        
+        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>" onclick="return yes_no();">        
 	        <?php submit_button( __( 'Reset Post view Data', 'wp-simple-post-view' ), 'primary', 'wp-spv-save-settings' ); ?>
 	    </form>
 	    <script type="text/javascript">
@@ -151,7 +143,6 @@ function wp_simple_post_view_settings(){
 	    	});
 	    </script>
     </div>
-
     <div class="wrap">
 		<h1><?php _e( 'Text Edit Settings', 'wp-simple-post-view' ); ?></h1>
 		<form method="post" action="options.php">

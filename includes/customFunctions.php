@@ -18,18 +18,15 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 
 		public static function ngd_postViewAddMetaBoxFun() {
 			global $post;
-
-			if(get_post_type($post->ID) == 'post') {
-					
-					$postView = __( 'Post View', 'wp-simple-post-view' );
-
-				    add_meta_box(
-				        'add_post_view',           // Unique ID
-				        $postView,  // Box title
-				        array( 'NGD_wpSimplePostView_Admin_AddMetaBox', 'ngd_addPostViewMetaBoxHTMLFun'),  // Content callback, must be of type callable
-				        'post',                   // Post type
-				        'side'
-				    );
+			if( get_post_type($post->ID) == 'post' ) {					
+				$postView = __( 'Post View', 'wp-simple-post-view' );
+			    add_meta_box(
+			        'add_post_view', // Unique ID
+			        $postView,  // Box title
+			        array( 'NGD_wpSimplePostView_Admin_AddMetaBox', 'ngd_addPostViewMetaBoxHTMLFun'),  // Content callback, must be of type callable
+			        'post', // Post type
+			        'side'
+			    );
 			}
 		}
 
