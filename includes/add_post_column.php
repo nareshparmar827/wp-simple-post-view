@@ -22,7 +22,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 
 		    	$isPostCountExists = get_post_meta( 'post_view' );
 
-		        if( ! isset( $isPostCountExists ) || empty( $isPostCountExists ) ) {
+		        if( ! isset( $isPostCountExists ) && empty( $isPostCountExists ) ) {
 		        	return $vars;
 		        }
 		        
@@ -56,7 +56,15 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		  // Post View column
 		  if ( 'post_view' === $column ) {
 		  	$post_view_count = get_post_meta($post_id, 'post_view', true);
-		    echo (!empty($post_view_count)) ? $post_view_count : 0;
+		  	if( ! empty( $post_view_count ) ){
+		  		if( is_numeric( $post_view_count ) ){
+		  			echo $post_view_count;
+		  		}else{
+		  			echo 0;
+		  		}
+		  	}else{
+		  		echo 0;
+		  	}
 		  }
 		}
 
