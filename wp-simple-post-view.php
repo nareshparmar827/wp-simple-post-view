@@ -74,14 +74,12 @@ require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/add_post_column.php"
 
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_simple_post_view_add_plugin_page_settings_link');
 function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
-	$links[] = '<a href="' .
-		admin_url( 'admin.php?page=wp-spv' ) .
-		'">' . __('Settings') . '</a>';
+	$links[] = '<a href="' . admin_url( 'admin.php?page=wp-spv' ) . '">' . __('Settings') . '</a>';
 	return $links;
 }
 
 /**
- * Register a custom menu page.
+ * Register a "Post View Settings" menu page.
  */
 function wp_simple_post_view_register_my_custom_menu_page() {
     add_menu_page(
@@ -103,7 +101,7 @@ function register_wp_simple_post_view_settings() {
 
 function wp_simple_post_view_settings(){
 
-	if( isset( $_REQUEST['wp-spv-save-settings'] ) && isset( $_REQUEST['page'] ) ){		
+	if( isset( $_POST['wp-spv-save-settings'] ) && isset( $_POST['page'] ) ){		
 		global $wpdb;
 		$q = "DELETE  FROM {$wpdb->prefix}postmeta WHERE meta_key='post_view' or meta_key='is_post_view'";
 		$sucess = $wpdb->query($q);
@@ -142,29 +140,25 @@ function wp_simple_post_view_settings(){
     </div>
 
     <div class="wrap">
-		<h1>Text Edit Settings</h1>
-
+		<h1><?php _e( 'Text Edit Settings', 'wp-simple-post-view' ); ?></h1>
 		<form method="post" action="options.php">
 		    <?php settings_fields( 'wp-simple-post-view-settings-group' ); ?>
 		    <?php do_settings_sections( 'wp-simple-post-view-settings-group' ); ?>
 		    <input name="form_nonce" type="hidden" value="<?=wp_create_nonce('test-nonce')?>" />
 		    <table class="form-table">
 		        <tr valign="top">
-		        <th scope="row">Post View Text</th>
-		        
-		        <?php $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
-		        if( empty( $wp_simple_post_view_text ) ) {
-		        	$wp_simple_post_view_text = 'Post View';
-		        }
+		        <th scope="row"><?php _e( 'Post View Text', 'wp-simple-post-view' ); ?></th>		        
+		        <?php 
+			        $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+			        if( empty( $wp_simple_post_view_text ) ) {
+			        	$wp_simple_post_view_text =  _e( 'Post View', 'wp-simple-post-view' );
+			        }
 		        ?>
 		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo $wp_simple_post_view_text; ?>" /></td>
-		        </tr>
-		        
-		    </table>
-		    
+		        </tr>		        
+		    </table>		    
 		    <?php submit_button(); ?>
-
 		</form>
-		</div>
+	</div>
     <?php
 }
