@@ -144,7 +144,6 @@ function wp_simple_post_view_settings(){
 		<form method="post" action="options.php">
 		    <?php settings_fields( 'wp-simple-post-view-settings-group' ); ?>
 		    <?php do_settings_sections( 'wp-simple-post-view-settings-group' ); ?>
-		    <input name="form_nonce" type="hidden" value="<?=wp_create_nonce('test-nonce')?>" />
 		    <table class="form-table">
 		        <tr valign="top">
 		        <th scope="row"><?php _e( 'Post View Text', 'wp-simple-post-view' ); ?></th>		        
