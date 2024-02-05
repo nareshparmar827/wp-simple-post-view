@@ -78,11 +78,10 @@ if ( ! function_exists( 'ngd_wp_simple_post_view_deactivation' ) ) {
 	}
 }
 
-require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/postSimplePostView.php');
+require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/post-simple-post-view.php');
 if ( is_admin() ) {
-    // we are in admin mode
-	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/customFunctions.php');
-	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/add_post_column.php');
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/custom-functions.php');
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/add-post-column.php');
 }
 
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_simple_post_view_add_plugin_page_settings_link');
@@ -95,7 +94,7 @@ function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
  * Register a "Post View Settings" menu page.
  */
 function wp_simple_post_view_register_menu_page() {
-    add_menu_page( __( 'Post View Settings', 'textdomain' ), __( 'Post View Settings', 'textdomain' ), 'manage_options', 'wp-spv', 'wp_simple_post_view_settings', '' );
+    add_menu_page( __( 'Post View Settings', 'wp-simple-post-view' ), __( 'Post View Settings', 'wp-simple-post-view' ), 'manage_options', 'wp-spv', 'wp_simple_post_view_settings', '' );
     add_action( 'admin_init', 'register_wp_simple_post_view_settings' );
 }
 add_action( 'admin_menu', 'wp_simple_post_view_register_menu_page' );
@@ -113,7 +112,7 @@ function wp_simple_post_view_settings(){
 		if( isset($sucess) || $sucess === 0 ){
 			?>
 		    <div class="notice notice-success is-dismissible">
-		        <p><?php _e( 'Success!', 'sample-text-domain' ); ?></p>
+		        <p><?php _e( 'Success!', 'wp-simple-post-view' ); ?></p>
 		    </div>
 		    <?php
 		}else{
