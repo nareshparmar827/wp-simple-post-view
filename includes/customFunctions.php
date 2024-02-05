@@ -13,7 +13,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 			add_action('save_post', array( 'NGD_wpSimplePostView_Admin_AddMetaBox', 'ngd_addPostViewMetaBoxSavePostdata'));
 		}
 
-		public function ngd_postViewAddMetaBoxFun() {
+		public static function ngd_postViewAddMetaBoxFun() {
 			global $post;
 
 			if(get_post_type($post->ID) == 'post') {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 			}
 		}
 
-		public function ngd_addPostViewMetaBoxHTMLFun($post) {
+		public static function ngd_addPostViewMetaBoxHTMLFun($post) {
 			if(isset($post)) {
 			$postView = __( 'Post View', 'wp-simple-post-view' );
 			$value = get_post_meta($post->ID, 'post_view', true); ?>
@@ -39,7 +39,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 			<?php }
 		}
 
-		public function ngd_addPostViewMetaBoxSavePostdata($post_id) {
+		public static function ngd_addPostViewMetaBoxSavePostdata($post_id) {
 
 			if(get_post_type($post_id) == 'post') {
 
