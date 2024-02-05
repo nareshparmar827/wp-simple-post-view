@@ -4,7 +4,7 @@
  * Description:		Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
  * Text Domain:		wp-simple-post-view
  * Domain Path:		/languages
- * Version:			1.1
+ * Version:			1.3
  * WordPress URI:	https://wordpress.org/plugins/wp-simple-post-view/
  * Plugin URI:		https://wordpress.org/plugins/wp-simple-post-view/
  * Contributors: 	nareshparmar827, dipakparmar443
@@ -20,8 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR', plugin_dir_path(__FILE__));
-
+if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR' ) ) {
+	define( 'NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR', plugin_dir_path(__FILE__));
+}
+if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_URL' ) ) {
+	define( 'NGD_WP_SIMPLE_POST_VIEW_URL', plugin_dir_url( __FILE__ ) );
+}
+if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_BASENAME' ) ) {
+	define( 'NGD_WP_SIMPLE_POST_VIEW_BASENAME', plugin_basename( __FILE__ ) );
+}	
 /**
  * Plugin textdomain.
  */
@@ -64,3 +71,67 @@ if ( ! function_exists( 'ngd_wpSimplePostViewDeactivation' ) ) {
 require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/postSimplePostView.php");
 require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/customFunctions.php");
 require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/add_post_column.php");
+
+add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_simple_post_view_add_plugin_page_settings_link');
+function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
+	$links[] = '<a href="' .
+		admin_url( 'admin.php?page=wp-spv' ) .
+		'">' . __('Settings') . '</a>';
+	return $links;
+}
+
+/**
+ * Register a custom menu page.
+ */
+function wp_simple_post_view_register_my_custom_menu_page() {
+    add_menu_page(
+        __( 'Post View Settings', 'textdomain' ),
+        'Post View Settings',
+        'manage_options',
+        'wp-spv',
+        'wp_simple_post_view_settings',
+        '');
+}
+add_action( 'admin_menu', 'wp_simple_post_view_register_my_custom_menu_page' );
+
+function wp_simple_post_view_settings(){
+
+	if( isset( $_REQUEST['wp-spv-save-settings'] ) && isset( $_REQUEST['page'] ) ){		
+		global $wpdb;
+		$q = "DELETE  FROM {$wpdb->prefix}postmeta WHERE meta_key='post_view' or meta_key='is_post_view'";
+		$sucess = $wpdb->query($q);
+		if( isset($sucess) || $sucess === 0 ){
+			?>
+		    <div class="notice notice-success is-dismissible">
+		        <p><?php _e( 'Success!', 'sample-text-domain' ); ?></p>
+		    </div>
+		    <?php
+		}else{
+			$class = 'notice notice-error';
+		    $message = __( 'An error has occurred.', 'wp-simple-post-view' );		 
+		    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) ); 
+		}
+
+	}
+
+	?>
+    <div class="wrap">
+        <h1><?php _e( 'Post View Count Settings', 'wp-simple-post-view' ); ?></h1>
+        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>" onclick="return yes_no();">	        
+	        <?php submit_button( __( 'Reset Post view Data', 'wp-simple-post-view' ), 'primary', 'wp-spv-save-settings' ); ?>
+	    </form>
+	    <script type="text/javascript">
+	    	jQuery( document ).ready( function (){
+	    		yes_no = function( event ){
+		    		var r = confirm('Are you sure you want to reset?');
+		    		if( r == true){
+		    			return true;
+		    		}else{
+		    			return false;
+		    		}
+		    	}
+	    	});
+	    </script>
+    </div>
+    <?php
+}
