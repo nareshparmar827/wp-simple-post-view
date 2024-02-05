@@ -4,10 +4,10 @@
  * Description:		Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
  * Text Domain:		wp-simple-post-view
  * Domain Path:		/languages
- * Version:			1.7
+ * Version:			1.8
  * WordPress URI:	https://wordpress.org/plugins/wp-simple-post-view/
  * Plugin URI:		https://wordpress.org/plugins/wp-simple-post-view/
- * Contributors: 	nareshparmar827, dipakparmar443, productineer
+ * Contributors: 	nareshparmar827, dipakparmar443
  * Author:			Naresh Parmar
  * Author URI:		https://profiles.wordpress.org/nareshparmar827/
  * Donate Link:		https://www.paypal.me/NARESHBHAIPARMAR
