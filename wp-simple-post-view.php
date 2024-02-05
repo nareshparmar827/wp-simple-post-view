@@ -4,14 +4,14 @@
  * Description:		Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
  * Text Domain:		wp-simple-post-view
  * Domain Path:		/languages
- * Version:			1.8.2
+ * Version:		1.8.4
  * WordPress URI:	https://wordpress.org/plugins/wp-simple-post-view/
  * Plugin URI:		https://wordpress.org/plugins/wp-simple-post-view/
  * Contributors: 	nareshparmar827, dipakparmar443
- * Author:			Naresh Parmar
+ * Author:		Naresh Parmar
  * Author URI:		https://profiles.wordpress.org/nareshparmar827/
  * Donate Link:		https://www.paypal.me/NARESHBHAIPARMAR
- * License:			GPL-3.0
+ * License:		GPL-3.0
  * License URI:		https://www.gnu.org/licenses/gpl-3.0.html
  * @copyright:		Naresh Parmar
 */
@@ -147,6 +147,7 @@ function wp_simple_post_view_settings(){
 		<form method="post" action="options.php">
 		    <?php settings_fields( 'wp-simple-post-view-settings-group' ); ?>
 		    <?php do_settings_sections( 'wp-simple-post-view-settings-group' ); ?>
+		    <input name="form_nonce" type="hidden" value="<?=wp_create_nonce('test-nonce')?>" />
 		    <table class="form-table">
 		        <tr valign="top">
 		        <th scope="row">Post View Text</th>

@@ -2,12 +2,12 @@
 Contributors: nareshparmar827, dipakparmar443
 Tags: Post View Count, Page View Count,Custom post type View Count, Easy Post Views Count, post count, post views, custom post views, count, view, postviews, counter
 Requires at least: 4.5
-Tested up to: 6.1.1
-Stable tag: 1.8.2
+Tested up to: 6.4.2
+Stable tag: 1.8.4
 Author: Naresh Parmar
 Author URI: https://profiles.wordpress.org/nareshparmar827/
 Plugin URI: https://wordpress.org/plugins/wp-simple-post-view/
-Version: 1.8.2
+Version: 1.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,5 +69,12 @@ A. Contact us at: [nareshparmar827@gmail.com](mailto:nareshparmar827@gmail.com)
 
 = 1.8 =
 * fixed issue "Sort ASC or DSC give me critical error https://wordpress.org/support/topic/sort-asc-or-dsc-give-me-critical-error/"
+
+= 1.8.3 =
+* Bug Fix
+
+= 1.8.4 =
+* Bug Fix
+
 
 == Screenshots ==
