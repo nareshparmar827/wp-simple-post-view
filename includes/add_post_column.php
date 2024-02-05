@@ -22,7 +22,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 
 		    	$isPostCountExists = get_post_meta( 'post_view' );
 
-		        if( ! isset( $isPostCountExists ) || empty( $isPostCountExists ) ) {
+		        if( ! isset( $isPostCountExists ) ) {
 		        	return $vars;
 		        }
 		        
