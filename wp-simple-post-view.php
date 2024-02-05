@@ -4,7 +4,7 @@
  * Description:		Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
  * Text Domain:		wp-simple-post-view
  * Domain Path:		/languages
- * Version:			1.2
+ * Version:			1.3
  * WordPress URI:	https://wordpress.org/plugins/wp-simple-post-view/
  * Plugin URI:		https://wordpress.org/plugins/wp-simple-post-view/
  * Contributors: 	nareshparmar827, dipakparmar443
@@ -117,9 +117,21 @@ function wp_simple_post_view_settings(){
 	?>
     <div class="wrap">
         <h1><?php _e( 'Post View Count Settings', 'wp-simple-post-view' ); ?></h1>
-        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>">	        
+        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>" onclick="return yes_no();">	        
 	        <?php submit_button( __( 'Reset Post view Data', 'wp-simple-post-view' ), 'primary', 'wp-spv-save-settings' ); ?>
 	    </form>
+	    <script type="text/javascript">
+	    	jQuery( document ).ready( function (){
+	    		yes_no = function( event ){
+		    		var r = confirm('Are you sure you want to reset?');
+		    		if( r == true){
+		    			return true;
+		    		}else{
+		    			return false;
+		    		}
+		    	}
+	    	});
+	    </script>
     </div>
     <?php
 }
