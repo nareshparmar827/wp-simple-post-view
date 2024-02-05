@@ -1,13 +1,13 @@
 === Post View Count ===
-Contributors: nareshparmar827, dipakparmar443, productineer
+Contributors: nareshparmar827, dipakparmar443
 Tags: Post View Count, Page View Count,Custom post type View Count, Easy Post Views Count, post count, post views, custom post views, count, view, postviews, counter
 Requires at least: 4.5
-Tested up to: 5.6
-Stable tag: 1.6
+Tested up to: 6.1.1
+Stable tag: 1.7
 Author: Naresh Parmar
 Author URI: https://profiles.wordpress.org/nareshparmar827/
 Plugin URI: https://wordpress.org/plugins/wp-simple-post-view/
-Version: 1.3
+Version: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,5 +63,8 @@ A. Contact us at: [nareshparmar827@gmail.com](mailto:nareshparmar827@gmail.com)
 
 = 1.6 =
 * fixed issue "Order by filter"
+
+= 1.6.1 =
+* fixed issue "function error"
 
 == Screenshots ==
