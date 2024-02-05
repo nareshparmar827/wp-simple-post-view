@@ -5,6 +5,8 @@
  * Text Domain: wp-simple-post-view
  * Domain Path: /languages
  * Version: 2.0
+ * Requires PHP: 7.2
+ * Requires at least: 5.2
  * WordPress URI: https://wordpress.org/plugins/wp-simple-post-view/
  * Plugin URI: https://wordpress.org/plugins/wp-simple-post-view/
  * Contributors: nareshparmar827, dipakparmar443
@@ -13,11 +15,27 @@
  * Donate Link: https://www.paypal.me/NARESHBHAIPARMAR
  * License: GPL-3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Update URI: https://wordpress.org/plugins/wp-simple-post-view/
  * @copyright: Naresh Parmar
 */
 
+/*
+{Post View Count} is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
+
+{Post View Count} is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with {Post View Count}. If not, see {https://www.gnu.org/licenses/gpl-3.0.html}.
+*/
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly
 }
 
 if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR' ) ) {
@@ -28,49 +46,44 @@ if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_URL' ) ) {
 }
 if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_BASENAME' ) ) {
 	define( 'NGD_WP_SIMPLE_POST_VIEW_BASENAME', plugin_basename( __FILE__ ) );
-}	
+}
+
 /**
  * Plugin textdomain.
  */
-
-add_action( 'plugins_loaded', 'ngd_wpSimplePostView_textdomain' );
-if ( ! function_exists( 'ngd_wpSimplePostView_textdomain' ) ) {
-
-	function ngd_wpSimplePostView_textdomain() {
+add_action( 'plugins_loaded', 'ngd_wp_simple_post_view_textdomain' );
+if ( ! function_exists( 'ngd_wp_simple_post_view_textdomain' ) ) {
+	function ngd_wp_simple_post_view_textdomain() {
 		load_plugin_textdomain( 'wp-simple-post-view', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
-
 }
 
 /**
  * Plugin activation.
  */
-
-register_activation_hook( __FILE__, 'ngd_wpSimplePostViewActivation' );
-if ( ! function_exists( 'ngd_wpSimplePostViewActivation' ) ) {
-
-	function ngd_wpSimplePostViewActivation() {
+register_activation_hook( __FILE__, 'ngd_wp_simple_post_view_activation' );
+if ( ! function_exists( 'ngd_wp_simple_post_view_activation' ) ) {
+	function ngd_wp_simple_post_view_activation() {
 		// Activation code here.
 	}
-
 }
 
 /**
  * Plugin deactivation.
  */
-
-register_deactivation_hook( __FILE__, 'ngd_wpSimplePostViewDeactivation' );
-if ( ! function_exists( 'ngd_wpSimplePostViewDeactivation' ) ) {
-
-	function ngd_wpSimplePostViewDeactivation() {
+register_deactivation_hook( __FILE__, 'ngd_wp_simple_post_view_deactivation' );
+if ( ! function_exists( 'ngd_wp_simple_post_view_deactivation' ) ) {
+	function ngd_wp_simple_post_view_deactivation() {
 		// Deactivation code here.
 	}
-
 }
 
-require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/postSimplePostView.php");
-require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/customFunctions.php");
-require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/add_post_column.php");
+if ( is_admin() ) {
+    // we are in admin mode
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/postSimplePostView.php');
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/customFunctions.php');
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/add_post_column.php');
+}
 
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_simple_post_view_add_plugin_page_settings_link');
 function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
@@ -81,7 +94,7 @@ function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
 /**
  * Register a "Post View Settings" menu page.
  */
-function wp_simple_post_view_register_my_custom_menu_page() {
+function wp_simple_post_view_register_menu_page() {
     add_menu_page(
         __( 'Post View Settings', 'textdomain' ),
         'Post View Settings',
@@ -92,7 +105,7 @@ function wp_simple_post_view_register_my_custom_menu_page() {
 
     add_action( 'admin_init', 'register_wp_simple_post_view_settings' );
 }
-add_action( 'admin_menu', 'wp_simple_post_view_register_my_custom_menu_page' );
+add_action( 'admin_menu', 'wp_simple_post_view_register_menu_page' );
 
 function register_wp_simple_post_view_settings() {
 	//register our settings

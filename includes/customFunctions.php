@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 // If check class exists.
 if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 	/**
