@@ -12,8 +12,28 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		public function __construct() {
 			add_filter( 'manage_post_posts_columns', array( 'NGD_wpSimplePostView_Admin', 'ngd_addPostView_filter_posts_columns') );
 			add_filter( 'manage_post_posts_custom_column', array( 'NGD_wpSimplePostView_Admin', 'ngd_PostView_post_column'), 10, 2 );
+			add_filter( 'manage_edit-post_sortable_columns', array( 'NGD_wpSimplePostView_Admin', 'ngd_register_sortable_columns') );
+			add_filter( 'request', array( 'NGD_wpSimplePostView_Admin', 'ngd_hits_column_orderby') );
+		}
+		
+		//Add filter to the request to make the hits sorting process numeric, not string
+		public function ngd_hits_column_orderby( $vars ) {
+		    if ( isset( $vars['orderby'] ) && 'post_view' == $vars['orderby'] ) {
+		        $vars = array_merge( $vars, array(
+		            'meta_key' => 'post_view',
+		            'orderby' => 'meta_value_num'
+		        ) );
+		    }
+
+		    return $vars;
 		}
 
+		// Register the columns as sortable
+		public function ngd_register_sortable_columns( $columns ) {
+		    $columns['post_view'] = 'post_view';
+		    return $columns;
+		}
+		
 		public function ngd_addPostView_filter_posts_columns( $columns ) {
   
 		  $columns['post_view'] = __( 'Post View', 'wp-simple-post-view' );
