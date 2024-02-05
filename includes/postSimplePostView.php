@@ -74,8 +74,8 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 					if ( !$post_views = get_post_meta( $id, 'post_view', true ) ) {
 						$post_views = 0;
 					}
-
-					update_post_meta( $id, 'post_view', $post_views + 1 );
+					$post_views = $post_views + 1;
+					update_post_meta( $id, 'post_view', $post_views );
 					update_post_meta( $id, 'is_post_view', $currentIPArr );
 				}
 			}
