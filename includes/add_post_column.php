@@ -19,6 +19,12 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		//Add filter to the request to make the hits sorting process numeric, not string
 		public static function ngd_hits_column_orderby( $vars ) {
 		    if ( isset( $vars['orderby'] ) && 'post_view' == $vars['orderby'] ) {
+
+		    	$isPostCountExists = get_post_meta( 'post_view' );
+		        if(count($isPostCountExists) <= 0 || empty($isPostCountExists)) {
+		        	return $vars;
+		        }
+		        
 		        $vars = array_merge( $vars, array(
 		            'meta_key' => 'post_view',
 		            'orderby' => 'meta_value_num'
@@ -33,7 +39,8 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		    $columns['post_view'] = 'post_view';
 		    return $columns;
 		}
-		public static function ngd_addPostView_filter_posts_columns( $columns ) {  		  
+    
+		public static function ngd_addPostView_filter_posts_columns( $columns ) {
   		  $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
           if( empty( $wp_simple_post_view_text ) ) {
         	$wp_simple_post_view_text = 'Post View';
