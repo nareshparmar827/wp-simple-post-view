@@ -1,4 +1,7 @@
 <?php 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 // If check class exists.
 if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 	/**
@@ -44,10 +47,10 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
   		  
   		  $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
           if( empty( $wp_simple_post_view_text ) ) {
-        	$wp_simple_post_view_text = 'Post View';
+        	$wp_simple_post_view_text = __( 'Post View', 'wp-simple-post-view' );
           }
 
-		  $columns['post_view'] = __( $wp_simple_post_view_text, 'wp-simple-post-view' );
+		  $columns['post_view'] = __( "$wp_simple_post_view_text", 'wp-simple-post-view' );
 		  return $columns;
 		}
 

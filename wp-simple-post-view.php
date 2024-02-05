@@ -1,23 +1,41 @@
 <?php 
 /*
- * Plugin Name:		Post View Count
- * Description:		Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
- * Text Domain:		wp-simple-post-view
- * Domain Path:		/languages
- * Version:		1.8.4
- * WordPress URI:	https://wordpress.org/plugins/wp-simple-post-view/
- * Plugin URI:		https://wordpress.org/plugins/wp-simple-post-view/
- * Contributors: 	nareshparmar827, dipakparmar443
- * Author:		Naresh Parmar
- * Author URI:		https://profiles.wordpress.org/nareshparmar827/
- * Donate Link:		https://www.paypal.me/NARESHBHAIPARMAR
- * License:		GPL-3.0
- * License URI:		https://www.gnu.org/licenses/gpl-3.0.html
- * @copyright:		Naresh Parmar
+ * Plugin Name: Post View Count
+ * Description: Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
+ * Text Domain: wp-simple-post-view
+ * Domain Path: /languages
+ * Version: 2.0
+ * Requires PHP: 7.2
+ * Requires at least: 5.2
+ * WordPress URI: https://wordpress.org/plugins/wp-simple-post-view/
+ * Plugin URI: https://wordpress.org/plugins/wp-simple-post-view/
+ * Contributors: nareshparmar827, dipakparmar443
+ * Author: Naresh Parmar
+ * Author URI: https://profiles.wordpress.org/nareshparmar827/
+ * Donate Link: https://www.paypal.me/NARESHBHAIPARMAR
+ * License: GPL-3.0
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Update URI: https://wordpress.org/plugins/wp-simple-post-view/
+ * @copyright: Naresh Parmar
+*/
+
+/*
+{Post View Count} is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
+
+{Post View Count} is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with {Post View Count}. If not, see {https://www.gnu.org/licenses/gpl-3.0.html}.
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly
 }
 
 if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR' ) ) {
@@ -28,82 +46,67 @@ if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_URL' ) ) {
 }
 if ( ! defined( 'NGD_WP_SIMPLE_POST_VIEW_BASENAME' ) ) {
 	define( 'NGD_WP_SIMPLE_POST_VIEW_BASENAME', plugin_basename( __FILE__ ) );
-}	
+}
+
 /**
  * Plugin textdomain.
  */
-
-add_action( 'plugins_loaded', 'ngd_wpSimplePostView_textdomain' );
-if ( ! function_exists( 'ngd_wpSimplePostView_textdomain' ) ) {
-
-	function ngd_wpSimplePostView_textdomain() {
+add_action( 'plugins_loaded', 'ngd_wp_simple_post_view_textdomain' );
+if ( ! function_exists( 'ngd_wp_simple_post_view_textdomain' ) ) {
+	function ngd_wp_simple_post_view_textdomain() {
 		load_plugin_textdomain( 'wp-simple-post-view', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
-
 }
 
 /**
  * Plugin activation.
  */
-
-register_activation_hook( __FILE__, 'ngd_wpSimplePostViewActivation' );
-if ( ! function_exists( 'ngd_wpSimplePostViewActivation' ) ) {
-
-	function ngd_wpSimplePostViewActivation() {
+register_activation_hook( __FILE__, 'ngd_wp_simple_post_view_activation' );
+if ( ! function_exists( 'ngd_wp_simple_post_view_activation' ) ) {
+	function ngd_wp_simple_post_view_activation() {
 		// Activation code here.
 	}
-
 }
 
 /**
  * Plugin deactivation.
  */
-
-register_deactivation_hook( __FILE__, 'ngd_wpSimplePostViewDeactivation' );
-if ( ! function_exists( 'ngd_wpSimplePostViewDeactivation' ) ) {
-
-	function ngd_wpSimplePostViewDeactivation() {
+register_deactivation_hook( __FILE__, 'ngd_wp_simple_post_view_deactivation' );
+if ( ! function_exists( 'ngd_wp_simple_post_view_deactivation' ) ) {
+	function ngd_wp_simple_post_view_deactivation() {
 		// Deactivation code here.
 	}
-
 }
 
-require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/postSimplePostView.php");
-require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/customFunctions.php");
-require_once(NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . "includes/add_post_column.php");
+require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/postSimplePostView.php');
+if ( is_admin() ) {
+    // we are in admin mode
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/customFunctions.php');
+	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/add_post_column.php');
+}
 
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_simple_post_view_add_plugin_page_settings_link');
 function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
-	$links[] = '<a href="' .
-		admin_url( 'admin.php?page=wp-spv' ) .
-		'">' . __('Settings') . '</a>';
+	$links[] = '<a href="' . admin_url( 'admin.php?page=wp-spv' ) . '">' . __('Settings') . '</a>';
 	return $links;
 }
 
 /**
- * Register a custom menu page.
+ * Register a "Post View Settings" menu page.
  */
-function wp_simple_post_view_register_my_custom_menu_page() {
-    add_menu_page(
-        __( 'Post View Settings', 'textdomain' ),
-        'Post View Settings',
-        'manage_options',
-        'wp-spv',
-        'wp_simple_post_view_settings',
-        '');
-
+function wp_simple_post_view_register_menu_page() {
+    add_menu_page( __( 'Post View Settings', 'textdomain' ), __( 'Post View Settings', 'textdomain' ), 'manage_options', 'wp-spv', 'wp_simple_post_view_settings', '' );
     add_action( 'admin_init', 'register_wp_simple_post_view_settings' );
 }
-add_action( 'admin_menu', 'wp_simple_post_view_register_my_custom_menu_page' );
+add_action( 'admin_menu', 'wp_simple_post_view_register_menu_page' );
 
 function register_wp_simple_post_view_settings() {
-	//register our settings
 	register_setting( 'wp-simple-post-view-settings-group', 'wp_simple_post_view_text' );
 }
 
 function wp_simple_post_view_settings(){
 
-	if( isset( $_REQUEST['wp-spv-save-settings'] ) && isset( $_REQUEST['page'] ) ){		
+	if( isset( $_POST['wp-spv-save-settings'] ) && isset( $_POST['page'] ) ){		
 		global $wpdb;
 		$q = "DELETE  FROM {$wpdb->prefix}postmeta WHERE meta_key='post_view' or meta_key='is_post_view'";
 		$sucess = $wpdb->query($q);
@@ -124,7 +127,7 @@ function wp_simple_post_view_settings(){
 	?>
     <div class="wrap">
         <h1><?php _e( 'Post View Count Settings', 'wp-simple-post-view' ); ?></h1>
-        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>" onclick="return yes_no();">	        
+        <form method="POST" action="<?php echo admin_url( 'admin.php?page=wp-spv' ); ?>" onclick="return yes_no();">        
 	        <?php submit_button( __( 'Reset Post view Data', 'wp-simple-post-view' ), 'primary', 'wp-spv-save-settings' ); ?>
 	    </form>
 	    <script type="text/javascript">
@@ -140,31 +143,25 @@ function wp_simple_post_view_settings(){
 	    	});
 	    </script>
     </div>
-
     <div class="wrap">
-		<h1>Text Edit Settings</h1>
-
+		<h1><?php _e( 'Text Edit Settings', 'wp-simple-post-view' ); ?></h1>
 		<form method="post" action="options.php">
 		    <?php settings_fields( 'wp-simple-post-view-settings-group' ); ?>
 		    <?php do_settings_sections( 'wp-simple-post-view-settings-group' ); ?>
-		    <input name="form_nonce" type="hidden" value="<?=wp_create_nonce('test-nonce')?>" />
 		    <table class="form-table">
 		        <tr valign="top">
-		        <th scope="row">Post View Text</th>
-		        
-		        <?php $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
-		        if( empty( $wp_simple_post_view_text ) ) {
-		        	$wp_simple_post_view_text = 'Post View';
-		        }
+		        <th scope="row"><?php _e( 'Post View Text', 'wp-simple-post-view' ); ?></th>		        
+		        <?php 
+			        $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+			        if( empty( $wp_simple_post_view_text ) ) {
+			        	$wp_simple_post_view_text =  _e( 'Post View', 'wp-simple-post-view' );
+			        }
 		        ?>
 		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo $wp_simple_post_view_text; ?>" /></td>
-		        </tr>
-		        
-		    </table>
-		    
+		        </tr>		        
+		    </table>		    
 		    <?php submit_button(); ?>
-
 		</form>
-		</div>
+	</div>
     <?php
 }

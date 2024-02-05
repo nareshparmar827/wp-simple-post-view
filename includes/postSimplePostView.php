@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 // If check class exists.
 if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 	
@@ -39,8 +42,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 
 		public function ngd_insertProcessPostviewFun() {
 			
-			global $user_ID, $post;
-			
+			global $user_ID, $post;			
 			
 			if ( is_int( $post ) ) {
 				$post = get_post( $post );
@@ -102,8 +104,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 		public function ngd_single_post_view_shortcode_fun( $atts ) {
 
 			global $user_ID, $post;
-
-			if(get_post_type($post->ID) != 'post') {
+			if( get_post_type($post->ID) != 'post' ) {
 				return;
 			}
 
