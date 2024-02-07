@@ -20,17 +20,17 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 		public function ngd_getCurrentIPAddressForPostView() {
 			
 			$ipaddress = '';
-		    if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+		    if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) {
 		        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-		    } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		    } elseif( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 		        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		    } elseif(isset($_SERVER['HTTP_X_FORWARDED'])){
+		    } elseif( isset( $_SERVER['HTTP_X_FORWARDED'] ) ){
 		        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-		    } elseif(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+		    } elseif( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) {
 		        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-		    } elseif(isset($_SERVER['HTTP_FORWARDED'])) {
+		    } elseif( isset( $_SERVER['HTTP_FORWARDED'] ) ) {
 		       $ipaddress = $_SERVER['HTTP_FORWARDED'];
-		    } elseif(isset($_SERVER['REMOTE_ADDR'])) {
+		    } elseif( isset( $_SERVER['REMOTE_ADDR'] ) ) {
 		        $ipaddress = $_SERVER['REMOTE_ADDR'];
 		    } else {
 		        $ipaddress = 'UNKNOWN';
@@ -54,8 +54,8 @@ if ( ! class_exists( 'NGD_wpSimplePostView' ) ) {
 			$is_post_view = false;
 			$currentIPArr = get_post_meta( $id, 'is_post_view', true );
 			
-			if(!empty($currentIPArr)) {		
-				if(in_array($currentIP, $currentIPArr)) {
+			if( ! empty( $currentIPArr ) ) {		
+				if( in_array( $currentIP, $currentIPArr ) ) {
 					$is_post_view = true;
 					return;
 				} else {
