@@ -18,7 +18,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 
 		public static function ngd_postViewAddMetaBoxFun() {
 			global $post;
-			if( get_post_type($post->ID) == 'post' ) {					
+			if( get_post_type( $post->ID ) === 'post' ) {					
 				$postView = __( 'Post View', 'wp-simple-post-view' );
 			    add_meta_box(
 			        'add_post_view', // Unique ID
@@ -35,19 +35,18 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 			$postView = __( 'Post View', 'wp-simple-post-view' );
 			$value = get_post_meta($post->ID, 'post_view', true); ?>
 			<label for="wporg_field"><strong><?php echo $postView;?></strong></label>
-		    <input type="number" name="post_view" style="width: 70%;" placeholder="post view" value="<?php echo esc_attr($value);?>">
+			<?php wp_nonce_field( 'wpspv_action', 'wpspv_field' ); ?>
+		    <input type="number" name="post_view" style="width: 70%;" placeholder="0" value="<?php echo esc_attr($value);?>">
 			<?php }
 		}
 
 		public static function ngd_addPostViewMetaBoxSavePostdata($post_id) {
             
-			if(get_post_type($post_id) == 'post') {
-                
-                if (array_key_exists('post_view', $_POST)) {
-                    
-                    $screen = esc_attr($_REQUEST['screen']);
-                    $action = esc_attr($_REQUEST['action']);
-                    if($screen == 'edit-post' && $action == 'inline-save') {
+			if( get_post_type( $post_id ) === 'post' ) {
+                if ( array_key_exists( 'post_view', $_POST ) ) {                    
+                    $screen = esc_attr( $_REQUEST['screen'] );
+                    $action = esc_attr( $_REQUEST['action'] );
+                    if( $screen == 'edit-post' && $action == 'inline-save' ) {
                         return;
                     }
                     
@@ -56,12 +55,8 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
 						$postViewValue = sanitize_title( $_POST['post_view'] );
 					}
 
-			        update_post_meta(
-			            $post_id,
-			            'post_view',
-			            $postViewValue
-			        );
-			    }
+			        update_post_meta( $post_id, 'post_view', $postViewValue );
+			    }         
 			}
 		}
 	}
@@ -71,10 +66,8 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin_AddMetaBox' ) ) {
  * Initialization class.
  */
 if ( ! function_exists( 'ngd_wpSimplePostView_Admin_Metabox_init' ) ) {
-
 	function ngd_wpSimplePostView_Admin_Metabox_init() {
 		new NGD_wpSimplePostView_Admin_AddMetaBox();
 	}
 	add_action( 'plugins_loaded', 'ngd_wpSimplePostView_Admin_Metabox_init' );
-
 }
