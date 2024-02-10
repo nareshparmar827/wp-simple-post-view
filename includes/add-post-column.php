@@ -20,11 +20,7 @@ if ( ! class_exists( 'NGD_wpSimplePostView_Admin' ) ) {
 		}
 		
 		//Add filter to the request to make the hits sorting process numeric, not string
-		public static function ngd_hits_column_orderby( $vars ) {
-			if ( ! current_user_can( 'manage_options' ) ) {
-				die( __( 'Security check.', 'wp-simple-post-view' ) );
-				return;
-			}
+		public static function ngd_hits_column_orderby( $vars ) {			
 		    if ( isset( $vars['orderby'] ) && 'post_view' == $vars['orderby'] ) {
 
 		    	$isPostCountExists = get_post_meta( 'post_view' );

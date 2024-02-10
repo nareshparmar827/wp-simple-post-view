@@ -4,7 +4,7 @@
  * Description: Using this plugin, see how many views your posts have. [ngd-single-post-view] OR [ngd-single-post-view id="post_id"]
  * Text Domain: wp-simple-post-view
  * Domain Path: /languages
- * Version: 2.0
+ * Version: 2.0.2
  * Requires PHP: 7.2
  * Requires at least: 5.2
  * WordPress URI: https://wordpress.org/plugins/wp-simple-post-view/
