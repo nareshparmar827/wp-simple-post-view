@@ -167,12 +167,12 @@ function wp_simple_post_view_settings(){
 		        <tr valign="top">
 		        <th scope="row"><?php _e( 'Post View Text', 'wp-simple-post-view' ); ?></th>		        
 		        <?php 
-			        $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+			        $wp_simple_post_view_text = get_option('wp_simple_post_view_text');
 			        if( empty( $wp_simple_post_view_text ) ) {
 			        	$wp_simple_post_view_text =  _e( 'Post View', 'wp-simple-post-view' );
 			        }
 		        ?>
-		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo $wp_simple_post_view_text; ?>" /></td>
+		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo esc_attr( $wp_simple_post_view_text ); ?>" /></td>
 		        </tr>		        
 		    </table>		    
 		    <?php submit_button(); ?>
