@@ -79,14 +79,15 @@ if ( ! function_exists( 'ngd_wp_simple_post_view_deactivation' ) ) {
 }
 
 require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/post-simple-post-view.php');
-//if ( is_admin() ) {
+if ( is_admin() ) {
 	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/custom-functions.php');
 	require_once( NGD_WP_SIMPLE_POST_VIEW_PLUGIN_DIR . 'includes/add-post-column.php');
-//}
+}
 
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_simple_post_view_add_plugin_page_settings_link');
-function wp_simple_post_view_add_plugin_page_settings_link( $links ) {
-	$links[] = '<a href="' . admin_url( 'admin.php?page=wp-spv' ) . '">' . __('Settings') . '</a>';
+function wp_simple_post_view_add_plugin_page_settings_link( $links ) {	
+	$url = add_query_arg( 'wpspv_wpnonce', wp_create_nonce( 'wpspv_action' ), esc_url( admin_url( 'admin.php?page=wp-spv' ) ) );
+	$links[] = '<a href="' . esc_url( $url ) . '">' . __('Settings') . '</a>';
 	return $links;
 }
 
@@ -166,12 +167,12 @@ function wp_simple_post_view_settings(){
 		        <tr valign="top">
 		        <th scope="row"><?php _e( 'Post View Text', 'wp-simple-post-view' ); ?></th>		        
 		        <?php 
-			        $wp_simple_post_view_text = esc_attr( get_option('wp_simple_post_view_text') );
+			        $wp_simple_post_view_text = get_option('wp_simple_post_view_text');
 			        if( empty( $wp_simple_post_view_text ) ) {
 			        	$wp_simple_post_view_text =  _e( 'Post View', 'wp-simple-post-view' );
 			        }
 		        ?>
-		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo $wp_simple_post_view_text; ?>" /></td>
+		        <td><input type="text" style="width: 60%;" name="wp_simple_post_view_text" value="<?php echo esc_attr( $wp_simple_post_view_text ); ?>" /></td>
 		        </tr>		        
 		    </table>		    
 		    <?php submit_button(); ?>
